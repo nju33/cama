@@ -2,6 +2,8 @@
 
 Text calculator app using [MathJS](https://github.com/josdejong/mathjs)
 
+![Cama screenshot](https://github.com/nju33/cama/blob/master/screenshot.gif?raw=true)
+
 ## How to use?
 
 This is almost MathJS itself, so please see the [MathJS document page](http://mathjs.org/docs/index.html).
