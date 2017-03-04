@@ -1,4 +1,4 @@
-# Cama
+<h1><img src="https://github.com/nju33/cama/blob/master/app/icons/icon.iconset/icon_32x32@2x.png?raw=true" width=30>&nbsp;Cama</h1>
 
 Text calculator app using [MathJS](https://github.com/josdejong/mathjs)
 
