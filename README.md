@@ -2,6 +2,17 @@
 
 Text calculator app using [MathJS](https://github.com/josdejong/mathjs)
 
+## How to use?
+
+This is almost MathJS itself, so please see the [MathJS document page](http://mathjs.org/docs/index.html).
+
+## Extension
+
+This app has its own extension as below.
+
+- `goldenRatio` `gr` = 1.618
+- `silverRatio` `sr` = 2.414
+
 ## Build Setup
 
 ``` bash
