@@ -41,15 +41,17 @@ export default {
       try {
         const result = math.eval(this.formula);
 
-        if (result.e < 0 && result.d.length === 1) {
-          result.d.unshift(0);
+        if (typeof result === 'number') {
+          this.result = result;
+        } else {
+          if (result.e < 0 && result.d.length === 1) {
+            result.d.unshift(0);
+          }
+          if (typeof result.d[1] !== 'undefined') {
+            result.d[1] = String(result.d[1]).replace(/0*$/, '');
+          }
+          this.result = result.d.join('.');
         }
-
-        if (typeof result.d[1] !== 'undefined') {
-          result.d[1] = String(result.d[1]).replace(/0*$/, '');
-        }
-
-        this.result = result.d.join('.');
         this.$electron.clipboard.writeText('' + this.result);
         this.formula = '';
       } catch (err) {
