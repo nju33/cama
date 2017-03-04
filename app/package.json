@@ -1,0 +1,14 @@
+{
+  "name": "cama",
+  "version": "0.0.0",
+  "description": "An electron-vue project",
+  "main": "./dist/main.js",
+  "dependencies": {
+    "lodash": "^4.17.4",
+    "mathjs": "^3.9.3",
+    "vue": "^2.1.10",
+    "vue-electron": "^1.0.6"
+  },
+  "devDependencies": {},
+  "author": "nju33 <nju33.ki@gmail.com>"
+}
