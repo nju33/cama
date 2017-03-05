@@ -15,6 +15,10 @@ This app has its own extension as below.
 - `goldenRatio` `gr` = 1.618
 - `silverRatio` `sr` = 2.414
 
+## Download
+
+From the [release page](https://github.com/nju33/cama/releases/latest)
+
 ## Build Setup
 
 ``` bash
