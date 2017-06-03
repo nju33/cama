@@ -14,6 +14,7 @@
 
 <script>
 import math from 'mathjs';
+import difference from 'lodash/difference';
 import debounce from 'lodash/debounce';
 import cond from 'lodash/cond';
 import matches from 'lodash/matches';
@@ -61,7 +62,10 @@ export default {
           this.result = result.d.join('.');
         }
         this.$electron.clipboard.writeText('' + this.result);
-        this.histories.unshift(this.formula);
+        this.histories = (() => {
+          const diff = difference(this.histories, [this.formula]);
+          return [this.formula, ...diff];
+        })();
         this.$data._historyIndex = -1;
         this.formula = '';
       } catch (err) {
@@ -111,9 +115,9 @@ export default {
     });
 
     const handleShortcut = cond([
-      [matches({key: 'p', ctrlKey: true}), () => this.prev()],
-      [matches({key: 'n', ctrlKey: true}), () => this.next()],
-      [matches({key: 'l', ctrlKey: true}), () => this.clear()],
+      [matches({key: 'p', ctrlKey: true}), debounce(this.prev, 100)],
+      [matches({key: 'n', ctrlKey: true}), debounce(this.next, 100)],
+      [matches({key: 'l', ctrlKey: true}), debounce(this.clear, 100)]
     ]);
 
     document.addEventListener('keydown', ev => {
