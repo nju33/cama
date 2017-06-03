@@ -13,8 +13,10 @@
 </template>
 
 <script>
-import {debounce} from 'lodash';
 import math from 'mathjs';
+import debounce from 'lodash/debounce';
+import cond from 'lodash/cond';
+import matches from 'lodash/matches';
 
 math.config({
   number: 'BigNumber',
@@ -33,11 +35,17 @@ export default {
     return {
       formula: '',
       result: '',
-      errorMessage: ''
+      errorMessage: '',
+      _historyIndex: -1,
+      histories: [],
     };
   },
   methods: {
     calc() {
+      if (!this.formula) {
+        return;
+      }
+
       try {
         const result = math.eval(this.formula);
 
@@ -53,11 +61,33 @@ export default {
           this.result = result.d.join('.');
         }
         this.$electron.clipboard.writeText('' + this.result);
+        this.histories.unshift(this.formula);
+        this.$data._historyIndex = -1;
         this.formula = '';
       } catch (err) {
         this.errorMessage = err.message;
         this.result = '';
       }
+    },
+    prev() {
+      const history = this.histories[this.$data._historyIndex + 1];
+      if (history) {
+        this.$data._historyIndex++;
+        this.formula = history;
+      }
+    },
+    next() {
+      const history = this.histories[this.$data._historyIndex - 1];
+      if (history) {
+        this.$data._historyIndex--;
+        this.formula = history;
+      } else if (this.formula !== '') {
+        this.$data._historyIndex--;
+        this.formula = '';
+      }
+    },
+    clear() {
+      this.formula = '';
     }
   },
   watch: {
@@ -78,6 +108,19 @@ export default {
         }
       });
       math.import(Object.assign({}, defConst, data));
+    });
+
+    const handleShortcut = cond([
+      [matches({key: 'p', ctrlKey: true}), () => this.prev()],
+      [matches({key: 'n', ctrlKey: true}), () => this.next()],
+      [matches({key: 'l', ctrlKey: true}), () => this.clear()],
+    ]);
+
+    document.addEventListener('keydown', ev => {
+      if (ev.ctrlKey) {
+        ev.preventDefault();
+      }
+      handleShortcut(ev);
     });
   }
 }

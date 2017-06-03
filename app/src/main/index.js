@@ -100,7 +100,6 @@ app.on('activate', () => {
 ipcMain.on('get-const:req', ({sender}) => {
   try {
     const data = getImportData();
-    console.log(data);
     sender.send('get-const:res', data);
   } catch (err) {
     console.log(err);
