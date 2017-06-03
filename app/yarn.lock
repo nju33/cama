@@ -14,10 +14,6 @@ fraction.js@4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/fraction.js/-/fraction.js-4.0.0.tgz#73974e2f8b51ef709536d624cc90782e2bb61274"
 
-import-lazy@^2.1.0:
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/import-lazy/-/import-lazy-2.1.0.tgz#05698e3d45c88e8d7e9d92cb0584e77f096f3e43"
-
 lodash@^4.17.4:
   version "4.17.4"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.4.tgz#78203a4d1c328ae1d86dca6460e369b57f4055ae"

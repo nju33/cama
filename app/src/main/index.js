@@ -9,11 +9,7 @@ import {
   Menu,
   globalShortcut
 } from 'electron';
-import _importLazy from 'import-lazy';
 
-const importLazy = _importLazy(require);
-const home = app.getPath('home');
-const getImportData = importLazy(`${home}/.config/cama/import.json`);
 let mainWindow = null;
 let mainTray = null;
 
@@ -99,8 +95,12 @@ app.on('activate', () => {
 
 ipcMain.on('get-const:req', ({sender}) => {
   try {
-    const data = getImportData();
-    sender.send('get-const:res', data);
+    const home = app.getPath('home');
+    const importData = fs.readFileSync(
+      `${home}/.config/cama/import.json`,
+      'utf-8'
+    );
+    sender.send('get-const:res', JSON.parse(importData));
   } catch (err) {
     console.log(err);
     sender.send('get-const:res', {});
