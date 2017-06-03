@@ -15,6 +15,42 @@ This app has its own extension as below.
 - `goldenRatio` `gr` = 1.618
 - `silverRatio` `sr` = 2.414
 
+You can also make `$HOME/.config/cama/import.json` and set the original constant.
+Like this
+
+```json
+{
+  "foo": 100,
+  "func": ["num", "return num"]
+}
+```
+
+Those specified by the array are passed to `Function`. In other words, it becomes a function declaration.
+
+```js
+new Function('num', 'return num');
+// num => { return num };
+```
+
+You will be able to use it as follows.
+
+```js
+foo + 10 // 110
+func(10) // 10
+```
+
+## Shortcuts
+
+### Global
+
+`CommandOrControl+Alt+/` => Display and focus.
+
+### Window
+
+`Control+p` => If there is, select the previous formula  
+`Control+n` => If there is, select one calculation formula  
+`Control+l` => Delete all input values  
+
 ## Download
 
 From the [release page](https://github.com/nju33/cama/releases/latest)
