@@ -21,12 +21,12 @@ math.config({
   precision: 8
 });
 
-math.import({
+const defConst = {
   goldenRatio: 1.618,
   gr: 1.618,
   silverRatio: 2.414,
   sr: 2.414
-});
+};
 
 export default {
   data() {
@@ -69,6 +69,16 @@ export default {
   },
   mounted() {
     this.$refs.formula.focus();
+
+    this.$electron.ipcRenderer.send('get-const:req');
+    this.$electron.ipcRenderer.on('get-const:res', (ev, data) => {
+      Object.keys(data).forEach(key => {
+        if (Array.isArray(data[key])) {
+          data[key] = new Function(...data[key]);
+        }
+      });
+      math.import(Object.assign({}, defConst, data));
+    });
   }
 }
 </script>
